@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ResourceController;
+use App\Http\Controllers\API\SearchController;
 
 /*
 |--------------------------------------------------------------------------

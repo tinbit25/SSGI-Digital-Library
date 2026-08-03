@@ -15,6 +15,7 @@ class AccessLog extends Model
         'resource_id',
         'action',
         'ip_address',
+        'user_agent',
     ];
 
     /**
