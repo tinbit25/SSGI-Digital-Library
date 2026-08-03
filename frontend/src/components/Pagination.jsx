@@ -5,17 +5,17 @@ const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-between pt-6 border-t border-slate-800/80 text-xs">
-      <p className="text-slate-400 font-medium">
-        Page <span className="text-slate-200 font-bold">{currentPage}</span> of{' '}
-        <span className="text-slate-200 font-bold">{totalPages}</span>
+    <div className="flex items-center justify-between pt-6 border-t border-gray-200 text-xs">
+      <p className="text-slate-500 font-medium">
+        Page <span className="text-slate-800 font-bold">{currentPage}</span> of{' '}
+        <span className="text-slate-800 font-bold">{totalPages}</span>
       </p>
 
       <div className="flex items-center gap-2">
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage <= 1}
-          className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-slate-600 hover:text-slate-900 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
           <ChevronLeft size={16} />
           <span>Previous</span>
@@ -28,8 +28,8 @@ const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
               onClick={() => onPageChange(pageNum)}
               className={`w-8 h-8 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
                 currentPage === pageNum
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                  ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                  : 'text-slate-500 hover:bg-gray-100 hover:text-slate-800'
               }`}
             >
               {pageNum}
@@ -40,7 +40,7 @@ const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
-          className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-slate-600 hover:text-slate-900 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
           <span>Next</span>
           <ChevronRight size={16} />

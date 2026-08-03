@@ -13,7 +13,7 @@ const DashboardLayout = () => {
   // Show animated loading screen while AuthContext hydrates from localStorage
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Loading message="Initializing SSGI Digital Library System..." />
       </div>
     );
@@ -25,7 +25,7 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="min-h-screen flex flex-col bg-gray-50 text-slate-800 selection:bg-blue-200 selection:text-blue-800">
       {/* Sticky Top Navigation */}
       <Navbar onToggleSidebar={() => setIsSidebarOpen((o) => !o)} isSidebarOpen={isSidebarOpen} />
 

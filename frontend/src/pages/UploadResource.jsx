@@ -113,8 +113,8 @@ const UploadResource = () => {
 
   const InputField = ({ label, name, type = 'text', placeholder, required }) => (
     <div>
-      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-        {label}{required && <span className="text-rose-400 ml-0.5">*</span>}
+      <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+        {label}{required && <span className="text-rose-600 ml-0.5">*</span>}
       </label>
       <input
         type={type}
@@ -123,12 +123,12 @@ const UploadResource = () => {
         onChange={handleChange}
         disabled={isSubmitting}
         placeholder={placeholder}
-        className={`w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
-          errors[name] ? 'border-rose-500/60 focus:ring-rose-500/20' : 'border-slate-800 focus:border-sky-500/60 focus:ring-sky-500/20'
+        className={`w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
+          errors[name] ? 'border-rose-200 focus:ring-rose-200' : 'border-gray-200 focus:border-blue-400 focus:ring-blue-500/20'
         }`}
       />
       {errors[name] && (
-        <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1">
+        <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1">
           <AlertCircle size={11} /> {errors[name]}
         </p>
       )}
@@ -138,12 +138,12 @@ const UploadResource = () => {
   if (success) {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="glass-panel p-12 rounded-3xl border border-emerald-500/30 bg-emerald-500/5 text-center space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
+        <div className="glass-panel p-12 rounded-3xl border border-emerald-200 bg-emerald-50 text-center space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mx-auto">
             <CheckCircle2 size={36} />
           </div>
-          <h3 className="text-xl font-bold text-slate-100">Resource Uploaded Successfully!</h3>
-          <p className="text-slate-400 text-xs leading-relaxed max-w-sm mx-auto">
+          <h3 className="text-xl font-bold text-slate-800">Resource Uploaded Successfully!</h3>
+          <p className="text-slate-500 text-xs leading-relaxed max-w-sm mx-auto">
             The PDF has been sent to the Laravel backend. Text will be extracted, chunked, embedded, and stored in Qdrant for AI search.
           </p>
           <button
@@ -160,25 +160,25 @@ const UploadResource = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
-          <Upload className="text-emerald-400" /> Upload Digital Resource
+        <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+          <Upload className="text-emerald-600" /> Upload Digital Resource
         </h1>
-        <p className="text-slate-400 text-xs mt-1">
+        <p className="text-slate-500 text-xs mt-1">
           Submit institutional documents for indexing. Backend will extract text, generate embeddings, and store chunks in Qdrant.
         </p>
       </div>
 
       {serverError && (
-        <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertCircle size={16} className="flex-shrink-0 text-rose-400" />
+        <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs flex items-center gap-2.5">
+          <AlertCircle size={16} className="flex-shrink-0 text-rose-600" />
           <span>{serverError}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+      <form onSubmit={handleSubmit} className="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-200 space-y-6">
         {/* Core Metadata */}
         <div className="space-y-4">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-gray-200 pb-2">
             Document Metadata
           </h3>
           <InputField label="Title" name="title" placeholder="e.g. Equatorial Ionosphere & Satellite Disruption Analysis 2024" required />
@@ -189,16 +189,16 @@ const UploadResource = () => {
 
           {/* Category Dropdown */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Category <span className="text-rose-400">*</span>
+            <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+              Category <span className="text-rose-600">*</span>
             </label>
             <select
               name="category_id"
               value={form.category_id}
               onChange={handleChange}
               disabled={isSubmitting}
-              className={`w-full bg-slate-900/90 text-slate-100 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 cursor-pointer ${
-                errors.category_id ? 'border-rose-500/60 focus:ring-rose-500/20' : 'border-slate-800 focus:border-sky-500/60 focus:ring-sky-500/20'
+              className={`w-full bg-white text-slate-800 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 cursor-pointer ${
+                errors.category_id ? 'border-rose-200 focus:ring-rose-200' : 'border-gray-200 focus:border-blue-400 focus:ring-blue-500/20'
               }`}
             >
               <option value="">Select a category...</option>
@@ -207,7 +207,7 @@ const UploadResource = () => {
               ))}
             </select>
             {errors.category_id && (
-              <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1">
+              <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1">
                 <AlertCircle size={11} /> {errors.category_id}
               </p>
             )}
@@ -215,8 +215,8 @@ const UploadResource = () => {
 
           {/* Description Textarea */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Description / Abstract <span className="text-rose-400">*</span>
+            <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+              Description / Abstract <span className="text-rose-600">*</span>
             </label>
             <textarea
               name="description"
@@ -225,12 +225,12 @@ const UploadResource = () => {
               onChange={handleChange}
               disabled={isSubmitting}
               placeholder="Provide an abstract or description of the document (minimum 20 characters)..."
-              className={`w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
-                errors.description ? 'border-rose-500/60 focus:ring-rose-500/20' : 'border-slate-800 focus:border-sky-500/60 focus:ring-sky-500/20'
+              className={`w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
+                errors.description ? 'border-rose-200 focus:ring-rose-200' : 'border-gray-200 focus:border-blue-400 focus:ring-blue-500/20'
               }`}
             />
             {errors.description && (
-              <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1">
+              <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1">
                 <AlertCircle size={11} /> {errors.description}
               </p>
             )}
@@ -239,37 +239,37 @@ const UploadResource = () => {
 
         {/* File Uploads */}
         <div className="space-y-4">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-gray-200 pb-2">
             File Uploads
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* PDF Upload Zone */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                PDF Document <span className="text-rose-400">*</span>
+              <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                PDF Document <span className="text-rose-600">*</span>
               </label>
               <div
                 onClick={() => pdfRef.current?.click()}
                 className={`border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-colors ${
                   errors.pdf
-                    ? 'border-rose-500/50 bg-rose-500/5 hover:bg-rose-500/10'
+                    ? 'border-rose-200 bg-rose-50 hover:bg-rose-50'
                     : pdfFile
-                    ? 'border-emerald-500/50 bg-emerald-500/5'
-                    : 'border-slate-700 hover:border-sky-500/40 hover:bg-sky-500/5'
+                    ? 'border-emerald-200 bg-emerald-50'
+                    : 'border-gray-300 hover:border-blue-300 hover:bg-blue-50'
                 }`}
               >
                 <input type="file" accept=".pdf" onChange={handlePdfChange} ref={pdfRef} className="hidden" />
-                <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-2">
-                  <FileText size={20} className={pdfFile ? 'text-emerald-400' : 'text-slate-400'} />
+                <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-300 flex items-center justify-center mx-auto mb-2">
+                  <FileText size={20} className={pdfFile ? 'text-emerald-600' : 'text-slate-500'} />
                 </div>
-                <p className="text-xs font-semibold text-slate-200 truncate px-2">
+                <p className="text-xs font-semibold text-slate-700 truncate px-2">
                   {pdfFile ? pdfFile.name : 'Click to select PDF'}
                 </p>
-                <p className="text-[10px] text-slate-500 mt-1">Max 50MB &bull; PDF only</p>
+                <p className="text-[10px] text-slate-400 mt-1">Max 50MB &bull; PDF only</p>
               </div>
               {errors.pdf && (
-                <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1">
+                <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1">
                   <AlertCircle size={11} /> {errors.pdf}
                 </p>
               )}
@@ -277,12 +277,12 @@ const UploadResource = () => {
 
             {/* Cover Image Upload Zone */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                Cover Image <span className="text-slate-500">(optional)</span>
+              <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                Cover Image <span className="text-slate-400">(optional)</span>
               </label>
               <div
                 onClick={() => imageRef.current?.click()}
-                className="border-2 border-dashed border-slate-700 hover:border-indigo-500/40 hover:bg-indigo-500/5 rounded-2xl p-5 text-center cursor-pointer transition-colors relative overflow-hidden"
+                className="border-2 border-dashed border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 rounded-2xl p-5 text-center cursor-pointer transition-colors relative overflow-hidden"
               >
                 <input type="file" accept="image/*" onChange={handleCoverChange} ref={imageRef} className="hidden" />
                 {coverPreview ? (
@@ -291,18 +291,18 @@ const UploadResource = () => {
                     <button
                       type="button"
                       onClick={(e) => { e.stopPropagation(); setCoverImage(null); setCoverPreview(null); }}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-slate-900/80 text-slate-200 flex items-center justify-center hover:bg-rose-500/80 transition-colors cursor-pointer"
+                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-gray-50 text-slate-700 flex items-center justify-center hover:bg-rose-50 transition-colors cursor-pointer"
                     >
                       <X size={12} />
                     </button>
                   </div>
                 ) : (
                   <>
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-2">
-                      <ImageIcon size={20} className="text-slate-400" />
+                    <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-300 flex items-center justify-center mx-auto mb-2">
+                      <ImageIcon size={20} className="text-slate-500" />
                     </div>
-                    <p className="text-xs font-semibold text-slate-200">Click to select image</p>
-                    <p className="text-[10px] text-slate-500 mt-1">PNG, JPG, WEBP supported</p>
+                    <p className="text-xs font-semibold text-slate-700">Click to select image</p>
+                    <p className="text-[10px] text-slate-400 mt-1">PNG, JPG, WEBP supported</p>
                   </>
                 )}
               </div>

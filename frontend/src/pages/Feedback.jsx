@@ -89,24 +89,24 @@ const Feedback = () => {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
-            <MessageSquare className="text-sky-400" />
+          <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+            <MessageSquare className="text-blue-600" />
             Feedback & Resource Requests
           </h1>
-          <p className="text-slate-400 text-xs mt-1">
+          <p className="text-slate-500 text-xs mt-1">
             Asynchronous submission channel for requesting missing resources and reporting portal issues.
           </p>
         </div>
 
         {/* Tab Selector for Admin/Librarian */}
         {isAdminOrLibrarian && (
-          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-gray-200 text-xs">
             <button
               onClick={() => setActiveTab('inbox')}
               className={`px-3.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
                 activeTab === 'inbox'
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-50 text-blue-600 border border-blue-300 font-semibold'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               Feedback Inbox ({feedbackList.length})
@@ -115,8 +115,8 @@ const Feedback = () => {
               onClick={() => setActiveTab('submit')}
               className={`px-3.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
                 activeTab === 'submit'
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-50 text-blue-600 border border-blue-300 font-semibold'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               Submit Form
@@ -129,10 +129,10 @@ const Feedback = () => {
       {isAdminOrLibrarian && activeTab === 'inbox' ? (
         <div className="space-y-4">
           {/* Status Filter Bar */}
-          <div className="glass-panel p-3 rounded-2xl border border-slate-800 flex items-center justify-between">
+          <div className="glass-panel p-3 rounded-2xl border border-gray-200 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400 font-semibold flex items-center gap-1">
-                <Filter size={14} className="text-sky-400" /> Filter Status:
+              <span className="text-xs text-slate-500 font-semibold flex items-center gap-1">
+                <Filter size={14} className="text-blue-600" /> Filter Status:
               </span>
               {['all', 'pending', 'reviewed', 'resolved'].map((st) => (
                 <button
@@ -140,8 +140,8 @@ const Feedback = () => {
                   onClick={() => setStatusFilter(st)}
                   className={`px-3 py-1 rounded-xl text-xs capitalize transition-all cursor-pointer ${
                     statusFilter === st
-                      ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-blue-50 text-blue-600 border border-blue-300 font-bold'
+                      : 'text-slate-500 hover:text-slate-800'
                   }`}
                 >
                   {st}
@@ -151,7 +151,7 @@ const Feedback = () => {
 
             <button
               onClick={fetchAdminFeedback}
-              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-gray-100 transition-colors"
               title="Refresh Inbox"
             >
               <RefreshCw size={14} />
@@ -163,10 +163,10 @@ const Feedback = () => {
           ) : error ? (
             <ErrorComponent message={error} onRetry={fetchAdminFeedback} />
           ) : filteredFeedback.length === 0 ? (
-            <div className="glass-card p-12 rounded-3xl border border-slate-800 text-center max-w-md mx-auto my-8 space-y-3">
+            <div className="glass-card p-12 rounded-3xl border border-gray-200 text-center max-w-md mx-auto my-8 space-y-3">
               <Inbox size={32} className="text-slate-500 mx-auto" />
-              <h3 className="text-base font-bold text-slate-100">No Feedback Items</h3>
-              <p className="text-slate-400 text-xs">No user submissions found under status "{statusFilter}".</p>
+              <h3 className="text-base font-bold text-slate-800">No Feedback Items</h3>
+              <p className="text-slate-500 text-xs">No user submissions found under status "{statusFilter}".</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
