@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ResourceController;
-use App\Http\Controllers\API\SearchController;
+use App\Http\Controllers\API\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,7 @@ Route::post('/login',    [AuthController::class, 'login']);
 Route::get('/categories',              [CategoryController::class, 'index']);
 Route::get('/resources',               [ResourceController::class, 'index']);
 Route::get('/resources/{resource}',    [ResourceController::class, 'show']);
+Route::post('/ai/chat', [ChatController::class, 'chat']);
 
 // ─── Authenticated Routes ────────────────────────────────────────────────────
 Route::middleware(['auth:sanctum'])->group(function () {
