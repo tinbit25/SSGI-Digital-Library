@@ -95,19 +95,19 @@ const Categories = () => {
     <div className="space-y-6 animate-in fade-in duration-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
-            <Tag className="text-emerald-400" /> Resource Categories
+          <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+            <Tag className="text-emerald-600" /> Resource Categories
           </h1>
-          <p className="text-slate-400 text-xs mt-1">Organise SSGI library resources by domain, subject matter, and training type.</p>
+          <p className="text-slate-500 text-xs mt-1">Organise SSGI library resources by domain, subject matter, and training type.</p>
         </div>
-        <button onClick={fetchCategories} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold cursor-pointer self-start">
+        <button onClick={fetchCategories} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-300 text-slate-700 text-xs font-semibold cursor-pointer self-start">
           <RefreshCw size={14} /> Refresh
         </button>
       </div>
 
       {successMsg && (
-        <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5 animate-in fade-in duration-200">
-          <CheckCircle2 size={16} className="text-emerald-400 flex-shrink-0" />
+        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs flex items-center gap-2.5 animate-in fade-in duration-200">
+          <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
@@ -116,21 +116,21 @@ const Categories = () => {
         {/* Category List */}
         <div className="lg:col-span-2 space-y-3">
           {categories.map((cat) => (
-            <div key={cat.id} className="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center justify-between gap-4 hover:border-slate-700 transition-all">
+            <div key={cat.id} className="glass-panel p-5 rounded-2xl border border-gray-200 flex items-center justify-between gap-4 hover:border-gray-300 transition-all">
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-sm font-bold text-slate-100">{cat.name}</h3>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-[10px] font-semibold">
+                  <h3 className="text-sm font-bold text-slate-800">{cat.name}</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-gray-100 border border-gray-300 text-slate-500 text-[10px] font-semibold">
                     {cat.resource_count ?? 0} Resources
                   </span>
                 </div>
                 {cat.description && (
-                  <p className="text-xs text-slate-400 truncate">{cat.description}</p>
+                  <p className="text-xs text-slate-500 truncate">{cat.description}</p>
                 )}
               </div>
               <button
                 onClick={() => { setEditingItem({ ...cat }); setFormErrors({}); }}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors flex-shrink-0 cursor-pointer"
+                className="p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-gray-100 transition-colors flex-shrink-0 cursor-pointer"
                 title="Edit category"
               >
                 <Edit3 size={16} />
@@ -140,39 +140,39 @@ const Categories = () => {
         </div>
 
         {/* Add / Edit Form Panel */}
-        <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4 h-fit">
-          <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-            <Plus size={16} className="text-emerald-400" />
+        <div className="glass-panel p-6 rounded-3xl border border-gray-200 space-y-4 h-fit">
+          <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+            <Plus size={16} className="text-emerald-600" />
             {editingItem ? 'Edit Category' : 'New Category'}
           </h3>
 
           {editingItem ? (
             <form onSubmit={handleEditSubmit} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Category Name <span className="text-rose-400">*</span></label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Category Name <span className="text-rose-600">*</span></label>
                 <input
                   type="text" value={editingItem.name}
                   onChange={(e) => setEditingItem((p) => ({ ...p, name: e.target.value }))}
                   disabled={isSubmitting}
-                  className={`w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border focus:outline-none disabled:opacity-60 ${formErrors.name ? 'border-rose-500/60' : 'border-slate-800 focus:border-emerald-500/60'}`}
+                  className={`w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border focus:outline-none disabled:opacity-60 ${formErrors.name ? 'border-rose-200' : 'border-gray-200 focus:border-emerald-400'}`}
                 />
-                {formErrors.name && <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1"><AlertCircle size={11}/>{formErrors.name}</p>}
+                {formErrors.name && <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1"><AlertCircle size={11}/>{formErrors.name}</p>}
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Description</label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
                 <textarea rows={3} value={editingItem.description || ''}
                   onChange={(e) => setEditingItem((p) => ({ ...p, description: e.target.value }))}
                   disabled={isSubmitting}
-                  className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border border-slate-800 focus:outline-none focus:border-emerald-500/60 disabled:opacity-60"
+                  className="w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border border-gray-200 focus:outline-none focus:border-emerald-400 disabled:opacity-60"
                 />
               </div>
               <div className="flex gap-2">
                 <button type="button" onClick={() => { setEditingItem(null); setFormErrors({}); }}
-                  className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 cursor-pointer">
+                  className="flex-1 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-slate-700 text-xs font-semibold border border-gray-300 cursor-pointer">
                   Cancel
                 </button>
                 <button type="submit" disabled={isSubmitting}
-                  className="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer">
+                  className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer">
                   {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
                   Save
                 </button>
@@ -181,23 +181,23 @@ const Categories = () => {
           ) : (
             <form onSubmit={handleAdd} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Category Name <span className="text-rose-400">*</span></label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Category Name <span className="text-rose-600">*</span></label>
                 <input
                   type="text" value={form.name}
                   onChange={(e) => { setForm((p) => ({ ...p, name: e.target.value })); if (formErrors.name) setFormErrors({}); }}
                   disabled={isSubmitting}
                   placeholder="e.g. Geodesy & GNSS Systems"
-                  className={`w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border focus:outline-none disabled:opacity-60 ${formErrors.name ? 'border-rose-500/60' : 'border-slate-800 focus:border-emerald-500/60'}`}
+                  className={`w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border focus:outline-none disabled:opacity-60 ${formErrors.name ? 'border-rose-200' : 'border-gray-200 focus:border-emerald-400'}`}
                 />
-                {formErrors.name && <p className="mt-1 text-rose-400 text-[11px] flex items-center gap-1"><AlertCircle size={11}/>{formErrors.name}</p>}
+                {formErrors.name && <p className="mt-1 text-rose-600 text-[11px] flex items-center gap-1"><AlertCircle size={11}/>{formErrors.name}</p>}
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Description</label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
                 <textarea rows={3} value={form.description}
                   onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                   disabled={isSubmitting}
                   placeholder="Brief summary of resources under this category..."
-                  className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-2.5 border border-slate-800 focus:outline-none focus:border-emerald-500/60 disabled:opacity-60"
+                  className="w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-2.5 border border-gray-200 focus:outline-none focus:border-emerald-400 disabled:opacity-60"
                 />
               </div>
               <button type="submit" disabled={isSubmitting}
