@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #0b0f19;
+    color: #f1f5f9;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+}
+
+/* ── Custom Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ── Glassmorphism Utilities ───────────────────────── */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.80);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.28);
+  box-shadow: 0 8px 30px rgba(2, 132, 199, 0.10);
+}
+
+/* ── SSGI Brand Gradient Utilities ─────────────────── */
+.ssgi-gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ssgi-gradient-bg {
+  background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+}
+
+/* ── Fade-in Animation Utility ─────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.animate-in {
+  animation: fadeIn 0.25s ease forwards;
+}
+
+.fade-in { animation-name: fadeIn; }
+
+/* Duration helpers used by animate-in combos */
+.duration-150 { animation-duration: 150ms; }
+.duration-200 { animation-duration: 200ms; }
+
+/* ── Zoom-In Animation (used in modals) ─────────────── */
+@keyframes zoomIn95 {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+.zoom-in-95 { animation-name: zoomIn95; }
+
+/* ── Slide-in from top (used in dropdowns) ──────────── */
+@keyframes slideInFromTop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.slide-in-from-top-2 { animation-name: slideInFromTop; }
+
+/* ── Focus ring utilities ───────────────────────────── */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.5);
+  outline-offset: 2px;
+}
+
+/* ── Print / Selection Protection ──────────────────── */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
