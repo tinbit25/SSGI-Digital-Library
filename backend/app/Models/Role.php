@@ -14,9 +14,9 @@ class Role extends SpatieRole
     ];
 
     /**
-     * Get users associated with this role.
+     * Get direct users associated with this role via role_id foreign key.
      */
-    public function users(): HasMany
+    public function directUsers(): HasMany
     {
         return $this->hasMany(User::class);
     }

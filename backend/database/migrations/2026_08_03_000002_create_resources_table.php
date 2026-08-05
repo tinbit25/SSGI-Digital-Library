@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('cover_image')->nullable();
             $table->string('pdf_path');
             $table->string('status')->default('published'); // draft, published, archived
+            $table->string('processing_status')->default('pending'); // pending, processing, completed, failed
             $table->timestamps();
         });
     }

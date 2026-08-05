@@ -11,11 +11,15 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('access_logs', function (Blueprint $table) {
-            $table->unsignedBigInteger('resource_id')->nullable()->after('user_id');
-            $table->string('ip_address')->after('action');
-            $table->string('user_agent')->nullable()->after('ip_address');
-            $table->index('action');
-            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('set null');
+            if (!Schema::hasColumn('access_logs', 'resource_id')) {
+                $table->foreignId('resource_id')->nullable()->constrained('resources')->onDelete('set null')->after('user_id');
+            }
+            if (!Schema::hasColumn('access_logs', 'ip_address')) {
+                $table->string('ip_address')->nullable()->after('action');
+            }
+            if (!Schema::hasColumn('access_logs', 'user_agent')) {
+                $table->string('user_agent')->nullable()->after('ip_address');
+            }
         });
     }
 
@@ -25,9 +29,9 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('access_logs', function (Blueprint $table) {
-            $table->dropForeign(['resource_id']);
-            $table->dropColumn(['resource_id', 'ip_address', 'user_agent']);
-            $table->dropIndex(['action']);
+            if (Schema::hasColumn('access_logs', 'user_agent')) {
+                $table->dropColumn('user_agent');
+            }
         });
     }
 };

@@ -28,45 +28,7 @@ const DocumentViewer = ({ resourceId, resourceTitle = 'Digital Resource Document
   const [error, setError] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Fetch page content from GET /api/resources/{id}/viewer?page=X
-  const fetchPage = useCallback(async (pageNumber) => {
-    setLoading(true);
-    setError(null);
-    try {
-      let data;
-      try {
-        data = await resourceService.getViewerData(resourceId, pageNumber);
-        const pageData = data.page_data || data.data || data;
-        setPageContent(pageData.content || pageData.html || pageData.text || pageData);
-        setTotalPages(data.total_pages || data.last_page || 12);
-      } catch (apiErr) {
-        console.warn(`API GET /api/resources/${resourceId}/viewer?page=${pageNumber} offline, generating protected page view:`, apiErr);
-        setTotalPages(12);
-        setPageContent({
-          page_number: pageNumber,
-          title: resourceTitle,
-          text_blocks: [
-            `SECTION ${pageNumber}.0: INSTITUTIONAL GEOSPATIAL & SPACE RESEARCH DATA`,
-            `This section contains verified remote sensing telemetry, ionospheric irregularities observation logs, and spatial analytical methodology curated by the Ethiopian Space Science and Geospatial Institute (SSGI).`,
-            `Key Findings & Technical Parameters:`,
-            `• Satellite Ground Station Frequency Calibration: 1.420 GHz - 2.690 GHz`,
-            `• Atmospheric Solar Flare Radiation Impact Index: 4.82 (Nominal)`,
-            `• Land Use Cover Classification Accuracy: 96.4% using Sentinel-2 Multi-Spectral Imagery`,
-            `• PyQGIS Batch Automation Script Execution Time: Reduced by 34%`,
-            `All document access is monitored under SSGI Digital Rights Management (DRM) Policy. Raw downloads, printing, and file exports are strictly prohibited.`,
-          ],
-        });
-      }
-    } catch (err) {
-      setError('Failed to render document page. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  }, [resourceId, resourceTitle]);
-
-  useEffect(() => {
-    fetchPage(currentPage);
-  }, [currentPage, fetchPage]);
+  const viewerUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'}/resources/${resourceId}/viewer?format=pdf`;
 
   // Security Interceptor: Block Ctrl+P, Cmd+P, Ctrl+S, Cmd+S, Ctrl+U
   useEffect(() => {
@@ -198,61 +160,19 @@ const DocumentViewer = ({ resourceId, resourceTitle = 'Digital Resource Document
         {/* Canvas & Content Viewer Body (Right-click & Selection Disabled) */}
         <div
           onContextMenu={(e) => e.preventDefault()}
-          className="flex-1 overflow-auto p-4 sm:p-8 bg-gray-50 flex justify-center items-start select-none relative"
+          className="flex-1 overflow-auto bg-gray-50 flex justify-center items-center select-none relative"
         >
-          {/* Security Dynamic Watermark Overlay */}
-          <div className="absolute inset-0 pointer-events-none z-10 flex flex-col items-center justify-between py-16 opacity-[0.04] select-none uppercase font-black text-2xl sm:text-4xl text-slate-900 tracking-widest leading-loose rotate-[-25deg] overflow-hidden">
-            <p>SSGI DIGITAL LIBRARY &bull; READ ONLY PORTAL</p>
-            <p>WATERMARKED FOR {user?.email || 'USER'}</p>
-            <p>DOWNLOADS & PRINTING STRICTLY DISABLED</p>
-          </div>
-
-          {loading ? (
-            <div className="my-auto">
-              <Loading message={`Decrypting and rendering page ${currentPage}...`} />
-            </div>
-          ) : error ? (
-            <div className="my-auto">
-              <ErrorComponent message={error} onRetry={() => fetchPage(currentPage)} />
-            </div>
-          ) : (
-            /* Protected Rendered Page Sheet */
-            <div
-              style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top center' }}
-              className="w-full max-w-3xl glass-panel p-8 sm:p-12 rounded-2xl border border-gray-200 space-y-6 text-slate-700 text-xs sm:text-sm leading-relaxed shadow-2xl transition-transform duration-150 my-4 relative z-0"
-            >
-              {/* Header inside Page Sheet */}
-              <div className="border-b border-gray-200 pb-4 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-blue-600 font-bold text-xs">
-                  <FileText size={16} />
-                  <span>ETHIOPIAN SPACE SCIENCE & GEOSPATIAL INSTITUTE</span>
-                </div>
-                <span className="text-[10px] font-mono text-slate-400">PAGE {currentPage} OF {totalPages}</span>
-              </div>
-
-              {/* Dynamic Protected Page Content */}
-              {typeof pageContent === 'object' && pageContent.text_blocks ? (
-                <div className="space-y-4">
-                  <h3 className="text-base font-bold text-slate-800">{pageContent.title}</h3>
-                  {pageContent.text_blocks.map((block, idx) => (
-                    <p key={idx} className="text-slate-600 leading-relaxed">
-                      {block}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <div className="whitespace-pre-line text-slate-600 leading-relaxed font-sans">
-                  {typeof pageContent === 'string' ? pageContent : JSON.stringify(pageContent, null, 2)}
-                </div>
-              )}
-
-              {/* Footer inside Page Sheet */}
-              <div className="pt-8 border-t border-gray-200 flex items-center justify-between text-[10px] text-slate-400 font-mono">
-                <span>CONFIDENTIAL &bull; INTERNAL READ-ONLY ACCESS</span>
-                <span>SYSTEM ID: SSGI-DRM-{resourceId}-{currentPage}</span>
-              </div>
-            </div>
-          )}
+          <iframe
+            src={viewerUrl}
+            className="w-full h-full border-none"
+            title={resourceTitle}
+            style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'center center' }}
+            onLoad={() => setLoading(false)}
+            onError={() => {
+              setLoading(false);
+              setError("Failed to load PDF securely.");
+            }}
+          />
         </div>
 
         {/* Bottom Status Bar */}
@@ -263,7 +183,6 @@ const DocumentViewer = ({ resourceId, resourceTitle = 'Digital Resource Document
           </div>
 
           <div className="flex items-center gap-4">
-            <span>Page Navigation: Keyboard Arrow Keys or Buttons</span>
             <span className="text-rose-600 font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
               No Download / No Export
             </span>

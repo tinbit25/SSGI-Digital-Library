@@ -6,6 +6,10 @@ export const authService = {
    * Endpoint: POST /api/login
    */
   async login(credentials) {
+    // 1. Fetch CSRF cookie for Sanctum SPA authentication
+    await api.get('/sanctum/csrf-cookie', { baseURL: import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:8000' });
+    
+    // 2. Perform login request
     const response = await api.post('/login', credentials);
     return response.data;
   },
