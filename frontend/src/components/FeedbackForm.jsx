@@ -69,24 +69,24 @@ const FeedbackForm = ({ onSuccess }) => {
   };
 
   return (
-    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
-      <div className="border-b border-slate-800/80 pb-4">
-        <h3 className="text-lg font-bold text-slate-100">Submit User Feedback</h3>
-        <p className="text-xs text-slate-400 mt-1">
+    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-200 space-y-6">
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-lg font-bold text-slate-800">Submit User Feedback</h3>
+        <p className="text-xs text-slate-500 mt-1">
           Request missing books/papers or report portal issues to SSGI Librarians.
         </p>
       </div>
 
       {successMessage && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-3 animate-in fade-in duration-200">
-          <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs flex items-center gap-3 animate-in fade-in duration-200">
+          <CheckCircle2 size={20} className="text-emerald-600 flex-shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {(validationError || serverError) && (
-        <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertCircle size={16} className="text-rose-400 flex-shrink-0" />
+        <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs flex items-center gap-2.5">
+          <AlertCircle size={16} className="text-rose-600 flex-shrink-0" />
           <span>{validationError || serverError}</span>
         </div>
       )}
@@ -94,7 +94,7 @@ const FeedbackForm = ({ onSuccess }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Type selector */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-2">Feedback Category</label>
+          <label className="block text-xs font-semibold text-slate-600 mb-2">Feedback Category</label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {CATEGORIES.map((cat) => {
               const IconComp = cat.icon;
@@ -107,11 +107,11 @@ const FeedbackForm = ({ onSuccess }) => {
                   disabled={isSubmitting}
                   className={`p-3 rounded-xl border text-xs font-medium flex items-center gap-2.5 transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-sky-500/20 text-sky-300 border-sky-500/40 font-semibold shadow-sm'
-                      : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:bg-slate-800'
+                      ? 'bg-blue-50 text-blue-600 border-blue-200 font-semibold shadow-sm'
+                      : 'bg-white text-slate-500 border-gray-200 hover:bg-gray-100'
                   }`}
                 >
-                  <IconComp size={16} className={isSelected ? 'text-sky-400' : 'text-slate-500'} />
+                  <IconComp size={16} className={isSelected ? 'text-blue-600' : 'text-slate-400'} />
                   <span className="truncate">{cat.label}</span>
                 </button>
               );
@@ -121,7 +121,7 @@ const FeedbackForm = ({ onSuccess }) => {
 
         {/* Subject Input */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">Subject</label>
+          <label className="block text-xs font-semibold text-slate-600 mb-1.5">Subject</label>
           <input
             type="text"
             disabled={isSubmitting}
@@ -131,13 +131,13 @@ const FeedbackForm = ({ onSuccess }) => {
               setSubject(e.target.value);
               if (validationError) setValidationError('');
             }}
-            className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-3 border border-slate-800 focus:outline-none focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20 disabled:opacity-60"
+            className="w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-60"
           />
         </div>
 
         {/* Message Input */}
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">Message / Details</label>
+          <label className="block text-xs font-semibold text-slate-600 mb-1.5">Message / Details</label>
           <textarea
             rows={5}
             disabled={isSubmitting}
@@ -147,14 +147,14 @@ const FeedbackForm = ({ onSuccess }) => {
               setMessage(e.target.value);
               if (validationError) setValidationError('');
             }}
-            className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 text-xs rounded-xl px-4 py-3 border border-slate-800 focus:outline-none focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20 disabled:opacity-60"
+            className="w-full bg-white text-slate-800 placeholder-gray-400 text-xs rounded-xl px-4 py-3 border border-gray-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-60"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 rounded-xl ssgi-gradient-bg text-white font-semibold text-xs shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 hover:brightness-110 transition-all cursor-pointer disabled:opacity-50"
+          className="w-full py-3.5 rounded-xl ssgi-gradient-bg text-white font-semibold text-xs shadow-lg shadow-blue-500/15 flex items-center justify-center gap-2 hover:brightness-110 transition-all cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>

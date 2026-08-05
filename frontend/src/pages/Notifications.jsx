@@ -126,29 +126,29 @@ const Notifications = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
-            <Bell className="text-sky-400" />
+          <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+            <Bell className="text-blue-600" />
             Notifications & Announcements
           </h1>
-          <p className="text-slate-400 text-xs mt-1">
+          <p className="text-slate-500 text-xs mt-1">
             Stay informed about newly uploaded resources, system updates, and feedback resolutions.
           </p>
         </div>
 
         {/* Unread Badge */}
         {unreadCount > 0 && (
-          <span className="px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-bold self-start sm:self-center">
+          <span className="px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-bold self-start sm:self-center">
             {unreadCount} Unread
           </span>
         )}
       </div>
 
       {/* Controls Toolbar */}
-      <div className="glass-panel p-3 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="glass-panel p-3 rounded-2xl border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         {/* Filter Tabs */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
-            <Filter size={14} className="text-sky-400" /> View:
+          <span className="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
+            <Filter size={14} className="text-blue-600" /> View:
           </span>
           {['all', 'unread', 'read'].map((f) => (
             <button
@@ -156,8 +156,8 @@ const Notifications = () => {
               onClick={() => setFilter(f)}
               className={`px-3.5 py-1.5 rounded-xl text-xs capitalize font-medium transition-all cursor-pointer ${
                 filter === f
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-50 text-blue-600 border border-blue-300 font-bold'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               {f === 'all' ? `All (${notifications.length})` : f === 'unread' ? `Unread (${unreadCount})` : 'Read'}
@@ -171,7 +171,7 @@ const Notifications = () => {
             <button
               onClick={handleMarkAllAsRead}
               disabled={markingAll}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
             >
               <CheckCheck size={14} />
               <span>{markingAll ? 'Marking...' : 'Mark All as Read'}</span>
@@ -179,7 +179,7 @@ const Notifications = () => {
           )}
           <button
             onClick={fetchNotifications}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-gray-100 transition-colors"
             title="Refresh Notifications"
           >
             <RefreshCw size={14} />
@@ -194,14 +194,14 @@ const Notifications = () => {
         <ErrorComponent message={error} onRetry={fetchNotifications} />
       ) : filteredNotifications.length === 0 ? (
         /* Empty State */
-        <div className="glass-card p-12 rounded-3xl border border-slate-800 text-center max-w-sm mx-auto space-y-3">
-          <div className="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mx-auto">
+        <div className="glass-card p-12 rounded-3xl border border-gray-200 text-center max-w-sm mx-auto space-y-3">
+          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 mx-auto">
             <Inbox size={28} />
           </div>
-          <h3 className="text-base font-bold text-slate-100">
+          <h3 className="text-base font-bold text-slate-800">
             {filter === 'unread' ? 'No Unread Notifications' : 'No Notifications Found'}
           </h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
+          <p className="text-slate-500 text-xs leading-relaxed">
             {filter === 'unread'
               ? 'All caught up! You have no unread notifications at this time.'
               : 'Notifications from SSGI Librarians and system updates will appear here.'}
@@ -209,7 +209,7 @@ const Notifications = () => {
           {filter !== 'all' && (
             <button
               onClick={() => setFilter('all')}
-              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-slate-700 text-xs font-semibold border border-gray-300 transition-colors cursor-pointer"
             >
               View All Notifications
             </button>
