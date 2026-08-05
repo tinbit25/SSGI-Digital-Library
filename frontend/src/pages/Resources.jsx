@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BookOpen, AlertCircle, RefreshCw } from 'lucide-react';
 import resourceService from '../services/resourceService';
+import searchService from '../services/searchService';
 import ResourceCard from '../components/ResourceCard';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
@@ -91,11 +92,18 @@ const Resources = () => {
       // 2. Fetch paginated resources
       let resData;
       try {
-        resData = await resourceService.getResources({
+        const params = {
           q: searchQuery,
           category_id: selectedCategory,
           page: currentPage,
-        });
+        };
+        
+        if (searchQuery.trim()) {
+          resData = await searchService.searchMetadata(params);
+        } else {
+          resData = await resourceService.getResources(params);
+        }
+        
         const items = resData.data || resData.resources || resData;
         setResources(Array.isArray(items) ? items : MOCK_RESOURCES);
         setTotalPages(resData.last_page || resData.total_pages || 1);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('access_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('resource_id')->constrained('resources')->onDelete('cascade');
+            $table->foreignId('resource_id')->nullable()->constrained('resources')->onDelete('set null');
             $table->string('action')->default('view'); // view, search
             $table->string('ip_address', 45)->nullable();
             $table->timestamps();

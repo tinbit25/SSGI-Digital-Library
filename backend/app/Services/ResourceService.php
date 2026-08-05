@@ -77,7 +77,7 @@ class ResourceService
             $coverImagePath = $this->storeCoverImage($data['cover_image']);
         }
 
-        return Resource::create([
+        $resource = Resource::create([
             'category_id'      => $data['category_id'],
             'uploaded_by'      => $uploadedBy,
             'title'            => $data['title'],
@@ -92,7 +92,13 @@ class ResourceService
             'status'           => $data['status'] ?? 'published',
             'pdf_path'         => $pdfPath,
             'cover_image'      => $coverImagePath,
+            'processing_status'=> 'pending',
         ]);
+
+        // Asynchronously process document chunking and vector storage
+        \App\Jobs\ProcessDocumentJob::dispatch($resource);
+
+        return $resource;
     }
 
     /**
@@ -100,11 +106,14 @@ class ResourceService
      */
     public function update(Resource $resource, array $data): Resource
     {
+        $pdfUpdated = false;
+
         // Replace PDF if new one was uploaded
         if (!empty($data['pdf_file'])) {
             // Delete old PDF
             Storage::disk('local')->delete($resource->pdf_path);
             $data['pdf_path'] = $this->storePdf($data['pdf_file']);
+            $pdfUpdated = true;
         }
 
         // Replace cover image if new one was uploaded
@@ -119,6 +128,10 @@ class ResourceService
         unset($data['pdf_file']);
 
         $resource->update($data);
+
+        if ($pdfUpdated) {
+            \App\Jobs\ProcessDocumentJob::dispatch($resource);
+        }
 
         return $resource->fresh(['category', 'uploader']);
     }

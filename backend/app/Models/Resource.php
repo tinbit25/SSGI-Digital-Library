@@ -27,6 +27,7 @@ class Resource extends Model
         'cover_image',
         'pdf_path',
         'status',
+        'processing_status',
     ];
 
     /**
